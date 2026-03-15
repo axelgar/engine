@@ -249,8 +249,8 @@ export class TileMap {
 
     const startCol = Math.max(0, Math.floor(rect.x / this.tileWidth));
     const startRow = Math.max(0, Math.floor(rect.y / this.tileHeight));
-    const endCol = Math.min(this.width - 1, Math.floor(rect.right / this.tileWidth));
-    const endRow = Math.min(this.height - 1, Math.floor(rect.bottom / this.tileHeight));
+    const endCol = Math.min(this.width - 1, Math.ceil(rect.right / this.tileWidth) - 1);
+    const endRow = Math.min(this.height - 1, Math.ceil(rect.bottom / this.tileHeight) - 1);
 
     for (let row = startRow; row <= endRow; row++) {
       for (let col = startCol; col <= endCol; col++) {
