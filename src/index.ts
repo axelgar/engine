@@ -35,3 +35,56 @@ export type { AssetManifest, ProgressCallback } from './assets/AssetLoader.js';
 export { AudioManager } from './audio/AudioManager.js';
 export { AudioChannel } from './audio/AudioChannel.js';
 export type { PlayOptions } from './audio/AudioChannel.js';
+
+// Tilemap
+export { TileMap } from './tilemap/TileMap.js';
+export type { TileInfo, TilesetBinding } from './tilemap/TileMap.js';
+export type {
+  TiledMap,
+  TiledLayer,
+  TiledTileLayer,
+  TiledObjectGroup,
+  TiledImageLayer,
+  TiledGroupLayer,
+  TiledObject,
+  TiledTilesetRef,
+  TiledTileDef,
+  TiledFrame,
+  TiledProperty,
+} from './tilemap/TiledTypes.js';
+export {
+  FLIPPED_HORIZONTALLY,
+  FLIPPED_VERTICALLY,
+  FLIPPED_DIAGONALLY,
+  ROTATED_HEX_120,
+  GID_MASK,
+} from './tilemap/TiledTypes.js';
+
+// Animation
+export { AnimationClip } from './animation/AnimationClip.js';
+export type { AnimationFrame } from './animation/AnimationClip.js';
+export { Animator } from './animation/Animator.js';
+
+// Scene
+export { Scene } from './scene/Scene.js';
+export { SceneManager } from './scene/SceneManager.js';
+export { FadeTransition } from './scene/Transition.js';
+export type { Transition } from './scene/Transition.js';
+
+// Entity
+export { Entity } from './entity/Entity.js';
+export type { Component } from './entity/Component.js';
+
+// Collision
+export { CollisionSystem } from './collision/CollisionSystem.js';
+export type { CollisionResult } from './collision/CollisionSystem.js';
+
+// Dialogue
+export { DialogueSystem } from './dialogue/DialogueSystem.js';
+export type {
+  DialogueLine,
+  DialogueChoice,
+  DialogueNode,
+  DialogueEvent,
+  DialogueCallback,
+} from './dialogue/DialogueSystem.js';
