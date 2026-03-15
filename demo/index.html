@@ -4,70 +4,120 @@
   <meta charset="UTF-8" />
   <title>JRPG Engine Demo</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #1a1a2e;
+      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      font-family: monospace;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
       color: #e0e0e0;
+      overflow: hidden;
     }
-    canvas { image-rendering: pixelated; border: 2px solid #444; }
+    canvas {
+      image-rendering: pixelated;
+      border-radius: 12px;
+      box-shadow:
+        0 0 40px rgba(100, 180, 255, 0.08),
+        0 8px 32px rgba(0, 0, 0, 0.5);
+    }
     .controls {
-      margin-top: 16px;
+      margin-top: 20px;
       text-align: center;
       font-size: 13px;
-      line-height: 1.6;
-      color: #999;
+      line-height: 1.8;
+      color: rgba(200, 210, 230, 0.6);
+      letter-spacing: 0.5px;
     }
     .controls kbd {
-      background: #333;
-      padding: 2px 6px;
-      border-radius: 3px;
-      border: 1px solid #555;
-      color: #ccc;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(200, 220, 255, 0.8);
+      font-family: inherit;
+      font-size: 12px;
     }
     #dialogue-box {
       position: fixed;
-      bottom: 80px;
+      bottom: 60px;
       left: 50%;
       transform: translateX(-50%);
-      width: 480px;
-      background: rgba(0, 0, 20, 0.92);
-      border: 2px solid #668;
-      border-radius: 8px;
-      padding: 16px 20px;
+      width: 500px;
+      background: linear-gradient(180deg,
+        rgba(10, 15, 40, 0.95) 0%,
+        rgba(5, 10, 30, 0.97) 100%);
+      border: 2px solid rgba(120, 160, 220, 0.35);
+      border-radius: 12px;
+      padding: 20px 24px;
       font-size: 15px;
-      line-height: 1.5;
+      line-height: 1.6;
       display: none;
+      backdrop-filter: blur(8px);
+      box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(120, 160, 220, 0.15);
     }
     #dialogue-box .speaker {
-      color: #8cf;
-      font-weight: bold;
-      margin-bottom: 4px;
+      color: #7ec8e3;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(120, 200, 230, 0.3);
     }
-    #dialogue-box .text { color: #eee; }
+    #dialogue-box .text {
+      color: rgba(230, 235, 245, 0.95);
+      font-size: 15px;
+    }
     #dialogue-box .hint {
-      margin-top: 8px;
-      font-size: 11px;
-      color: #666;
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(150, 170, 200, 0.5);
     }
-    #fps { position: fixed; top: 8px; right: 12px; font-size: 12px; color: #666; }
+    #dialogue-box .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: rgba(120, 200, 230, 0.6);
+      margin-left: 6px;
+      animation: blink 0.8s step-end infinite;
+      vertical-align: middle;
+      border-radius: 1px;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    #fps {
+      position: fixed;
+      top: 10px;
+      right: 14px;
+      font-size: 11px;
+      color: rgba(150, 170, 200, 0.35);
+      font-family: monospace;
+    }
+    #title {
+      margin-bottom: 16px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(150, 180, 220, 0.4);
+    }
   </style>
 </head>
 <body>
-  <canvas id="game" width="512" height="384"></canvas>
+  <div id="title">JRPG Engine</div>
+  <canvas id="game" width="640" height="480"></canvas>
   <div class="controls">
-    <kbd>Arrow keys</kbd> / <kbd>WASD</kbd> move &nbsp;|&nbsp;
-    <kbd>Space</kbd> interact &nbsp;|&nbsp;
-    Walk up to the NPC to talk!
+    <kbd>Arrows</kbd> / <kbd>WASD</kbd> move &nbsp;&bull;&nbsp;
+    <kbd>Space</kbd> interact &nbsp;&bull;&nbsp;
+    Find the sage near the village!
   </div>
   <div id="dialogue-box">
     <div class="speaker" id="dlg-speaker"></div>
-    <div class="text" id="dlg-text"></div>
+    <div class="text" id="dlg-text"><span id="dlg-text-content"></span><span class="cursor"></span></div>
     <div class="hint" id="dlg-hint"></div>
   </div>
   <div id="fps"></div>
